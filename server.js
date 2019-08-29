@@ -3,6 +3,17 @@ const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const port = process.env.PORT || 4000
+var twilio = require('twilio');
+
+console.log("hyeh");
+
+const accountSid = 'ACf797d7735fb2e9829bd25971bc59e76c';
+const authToken = 'a9a46b2a307683509eb5ee9bc7bd5ff1';
+const client = twilio(accountSid, authToken);
+
+client.tokens.create().then(token => console.log("username  ",token.username,"\n","password",token.password,"\n","credentials ",token.toJSON())).catch(er=>{
+    console.log(err);
+});
 
 app.use(express.static(__dirname + "/public"))
 let clients = 0

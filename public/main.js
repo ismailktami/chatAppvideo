@@ -22,7 +22,27 @@ navigator.mediaDevices.getUserMedia({ video:true,audio: true })
 
         //used to initialize a peer
         function InitPeer(type) {
-            let peer = new Peer({ initiator: (type == 'init') ? true : false, stream: stream, trickle: false })
+            let peer = new Peer({ initiator: (type == 'init') ? true : false, stream: stream, trickle: false ,
+            iceServers:
+             [ { url: 'stun:global.stun.twilio.com:3478?transport=udp',
+                 urls: 'stun:global.stun.twilio.com:3478?transport=udp' },
+               { url: 'turn:global.turn.twilio.com:3478?transport=udp',
+                 username:
+                  '2ce74322c4ed612ff6893ee5aec819ba24edb9c1503fba76b1eb6516b2e5233c',
+                 urls: 'turn:global.turn.twilio.com:3478?transport=udp',
+                 credential: 'ucUi114yYNspD6h49qZ2+ynr5aNzRO0oPETU7Fx4F84=' },
+               { url: 'turn:global.turn.twilio.com:3478?transport=tcp',
+                 username:
+                  '2ce74322c4ed612ff6893ee5aec819ba24edb9c1503fba76b1eb6516b2e5233c',
+                 urls: 'turn:global.turn.twilio.com:3478?transport=tcp',
+                 credential: 'ucUi114yYNspD6h49qZ2+ynr5aNzRO0oPETU7Fx4F84=' },
+               { url: 'turn:global.turn.twilio.com:443?transport=tcp',
+                 username:
+                  '2ce74322c4ed612ff6893ee5aec819ba24edb9c1503fba76b1eb6516b2e5233c',
+                 urls: 'turn:global.turn.twilio.com:443?transport=tcp',
+                 credential: 'ucUi114yYNspD6h49qZ2+ynr5aNzRO0oPETU7Fx4F84=' } ]
+        
+          })
             peer.on('stream', function (stream) {
                 CreateVideo(stream)
             })
